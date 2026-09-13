@@ -1,43 +1,55 @@
 package com.jsp.employee.controller;
 
+import java.util.List;
+
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.jsp.employee.entity.Department;
 import com.jsp.employee.service.DepartmentService;
 
 import lombok.AllArgsConstructor;
 
-@RequestMapping
+@RestController
+@RequestMapping("/department")
 @AllArgsConstructor
 public class DepartmentController {
 
 	private final DepartmentService departmentService;
 	
-	
-	public String saveDepartment(@PathVariable int id) {
-		return null;
+	@PostMapping
+	public Department saveDepartment(@RequestBody Department department ) {
+		return departmentService.saveDepartment(department);
 		
 	}
 	
-	public String fetchbyId(@PathVariable int id) {
-		return null;
+	@GetMapping("/id/{id}")
+	public Department fetchById(@PathVariable int id ) {
+		return departmentService.fetchById(id);
 		
 	}
 	
-	public String fetchAll() {
-		return null;
+	@GetMapping
+	public List<Department> fetchAll() {
+		return departmentService.fetchAll();
 		
 	}
 	
-	public String updateDepartment(@RequestBody Department department , @PathVariable int id) {
-		return null;
+	@PutMapping("/id/{id}")
+	public Department updateDepartment(@RequestBody Department department , @PathVariable int id) {
+		return departmentService.update(id, department);
 		
 	}
 	
+	@DeleteMapping("/id/{id}")
 	public String deleteDepartment(@PathVariable int id) {
-		return null;
+		return departmentService.delete(id);
 		
 	}
 }
